@@ -82,7 +82,7 @@ rate           	1.00           	4.35
 ===========================================================================
 ```
 
-In English test, AhoCorasickDoubleArrayTrie is 1.77 times faster. When it comes to Chinese, AhoCorasickDoubleArrayTrie is 4.51 times faster.
+In English test, AhoCorasickDoubleArrayTrie is 1.87 times faster. When it comes to Chinese, AhoCorasickDoubleArrayTrie is 4.35 times faster.
 Feel free to re-run this test in TestAhoCorasickDoubleArrayTrie, the test data is ready for you.
 
 
