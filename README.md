@@ -68,13 +68,13 @@ Comparison
 -----
 I compared my AhoCorasickDoubleArrayTrie with robert-bor's aho-corasick, ACDAT represents for AhoCorasickDoubleArrayTrie and Naive repesents for aho-corasick, the result is :
 ```
-Parsing document which contains 3409283 characters, with a dictionary of 127142 words.
+Parsing English document which contains 3409283 characters, with a dictionary of 127142 words.
                	Naive          	ACDAT          
 time           	571            	306            
 char/s         	5970723.29     	11141447.71    
 rate           	1.00           	1.87           
 ===========================================================================
-Parsing document which contains 1290573 characters, with a dictionary of 146047 words.
+Parsing Chinese document which contains 1290573 characters, with a dictionary of 146047 words.
                	Naive          	ACDAT          
 time           	270            	62             
 char/s         	4779900.00     	20815693.55    
