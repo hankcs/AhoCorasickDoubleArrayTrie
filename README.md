@@ -10,7 +10,7 @@ You may heard that Aho-Corasick algorithm is fast for parsing text with a huge d
 * adding semantics to plain text
 * checking against a dictionary to see if syntactic errors were made
 
-But most implementation use a `TreeMap<Character, State>` to store the *goto* structure, which costs `O(ln(n))` time, `n` is the largest amount of a word's common suffixes, absolutely `t > 2`. The others used a `HashMap`, which wasted too much memory, and still remained slowly.
+But most implementation use a `TreeMap<Character, State>` to store the *goto* structure, which costs `O(ln(n))` time, `n` is the largest amount of a word's common suffixes, absolutely `n > 2`. The others used a `HashMap`, which wasted too much memory, and still remained slowly.
 
 I improve it by replace the `XXXMap` to a Double Array Trie, whose time complexity is just `O(1)`, thus we get a total complexity of exactly O(n), and has a perfect balance of time and memory. Yes, its speed is not related to the length or language or common suffix of the words of a dictionary.
 
