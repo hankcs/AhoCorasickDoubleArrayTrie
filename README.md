@@ -12,7 +12,7 @@ You may heard that Aho-Corasick algorithm is fast for parsing text with a huge d
 
 But most implementation use a `TreeMap<Character, State>` to store the *goto* structure, which costs `O(ln(t))` time, `t` is the largest amount of a word's common suffixes. The final complexity is `O(n * ln(t))`, absolutely `t > 2`, so `n * ln(t) > n `. The others used a `HashMap`, which wasted too much memory, and still remained slowly.
 
-I improve it by replace the `XXXMap` to a Double Array Trie, whose time complexity is just `O(1)`, thus we get a total complexity of exactly O(n), and has a perfect balance of time and memory. Yes, its speed is not related to the length or language or common suffix of the words of a dictionary.
+I improve it by replace the `XXXMap` to a Double Array Trie, whose time complexity is just `O(1)`, thus we get a total complexity of exactly `O(n)`, and has a perfect balance of time and memory. Yes, its speed is not related to the length or language or common suffix of the words of a dictionary.
 
 Usage
 -----
