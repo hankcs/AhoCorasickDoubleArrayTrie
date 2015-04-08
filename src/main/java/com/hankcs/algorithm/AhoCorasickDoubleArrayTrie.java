@@ -139,39 +139,6 @@ public class AhoCorasickDoubleArrayTrie<V>
         }
     }
 
-    /**
-     * 持久化
-     * @param out 一个DataOutputStream
-     * @throws IOException 可能的IO异常等
-     */
-    public void save(DataOutputStream out) throws IOException
-    {
-        out.writeInt(size);
-        for (int i = 0; i < size; i++)
-        {
-            out.writeInt(base[i]);
-            out.writeInt(check[i]);
-            out.writeInt(fail[i]);
-            int output[] = this.output[i];
-            if (output == null)
-            {
-                out.writeInt(0);
-            }
-            else
-            {
-                out.writeInt(output.length);
-                for (int o : output)
-                {
-                    out.writeInt(o);
-                }
-            }
-        }
-        out.writeInt(l.length);
-        for (int length : l)
-        {
-            out.writeInt(length);
-        }
-    }
 
     /**
      * 持久化
@@ -185,23 +152,23 @@ public class AhoCorasickDoubleArrayTrie<V>
         out.writeObject(fail);
         out.writeObject(output);
         out.writeObject(l);
+        out.writeObject(v);
     }
 
     /**
      * 载入
      * @param in 一个ObjectInputStream
-     * @param value 值（持久化的时候并没有持久化值，现在需要额外提供）
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    public void load(ObjectInputStream in, V[] value) throws IOException, ClassNotFoundException
+    public void load(ObjectInputStream in) throws IOException, ClassNotFoundException
     {
         base = (int[]) in.readObject();
         check = (int[]) in.readObject();
         fail = (int[]) in.readObject();
         output = (int[][]) in.readObject();
         l = (int[]) in.readObject();
-        v = value;
+        v = (V[]) in.readObject();
     }
 
     /**
