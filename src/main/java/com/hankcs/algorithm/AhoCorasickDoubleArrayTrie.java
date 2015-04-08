@@ -142,9 +142,9 @@ public class AhoCorasickDoubleArrayTrie<V>
     /**
      * 持久化
      * @param out 一个DataOutputStream
-     * @throws Exception 可能的IO异常等
+     * @throws IOException 可能的IO异常等
      */
-    public void save(DataOutputStream out) throws Exception
+    public void save(DataOutputStream out) throws IOException
     {
         out.writeInt(size);
         for (int i = 0; i < size; i++)

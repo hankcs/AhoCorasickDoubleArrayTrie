@@ -10,9 +10,9 @@ You may heard that Aho-Corasick algorithm is fast for parsing text with a huge d
 * adding semantics to plain text
 * checking against a dictionary to see if syntactic errors were made
 
-But most implementation use a `TreeMap<Character, State>` to store the success function, which costs `O(n*ln(t))` time, `n` is the length of text, and `t` is the largest amount of a word's common suffixes, absolutely `t > 2`. The others used a `HashMap`, which wasted too much memory, and still remained slow.
+But most implementation use a `TreeMap<Character, State>` to store the *goto* structure, which costs `O(ln(n))` time, `n` is the largest amount of a word's common suffixes, absolutely `t > 2`. The others used a `HashMap`, which wasted too much memory, and still remained slowly.
 
-I improve it by replace the `XXXMap` to a Double Array Trie, whose time complexity is just `O(n)`, and has a perfect balance of time and memory. Yes, its speed is not related to the length or language or common suffix of the words of a dictionary.
+I improve it by replace the `XXXMap` to a Double Array Trie, whose time complexity is just `O(1)`, thus we get a total complexity of exactly O(n), and has a perfect balance of time and memory. Yes, its speed is not related to the length or language or common suffix of the words of a dictionary.
 
 Usage
 -----
@@ -54,6 +54,14 @@ In normal situations you probably do not need a huge segmentList, then please tr
             {
                 System.out.printf("[%d:%d]=%s\n", begin, end, value);
             }
+        });
+```
+
+or a lambda function
+```
+        act.parseText(text, (begin, end, value) -> {
+            System.out.printf("[%d:%d]=%s\n", begin, end, value);
+            assertEquals(text.substring(begin, end), value);
         });
 ```
 

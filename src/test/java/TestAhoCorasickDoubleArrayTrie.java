@@ -44,15 +44,12 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         act.build(map);
         // Test it
         final String text = "uhers";
-        act.parseText(text, new AhoCorasickDoubleArrayTrie.IHit<String>()
-        {
-            @Override
-            public void hit(int begin, int end, String value)
-            {
-                System.out.printf("[%d:%d]=%s\n", begin, end, value);
-                assertEquals(text.substring(begin, end), value);
-            }
+        act.parseText(text, (begin, end, value) -> {
+            System.out.printf("[%d:%d]=%s\n", begin, end, value);
+            assertEquals(text.substring(begin, end), value);
         });
+        List<AhoCorasickDoubleArrayTrie<String>.Hit<String>> segmentList = act.parseText(text);
+        System.out.println(segmentList);
     }
 
     private String loadText(String path) throws IOException
