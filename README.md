@@ -61,7 +61,6 @@ or a lambda function
 ```
         act.parseText(text, (begin, end, value) -> {
             System.out.printf("[%d:%d]=%s\n", begin, end, value);
-            assertEquals(text.substring(begin, end), value);
         });
 ```
 
