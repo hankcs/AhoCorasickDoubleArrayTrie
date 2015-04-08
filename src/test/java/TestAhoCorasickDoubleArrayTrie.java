@@ -44,9 +44,14 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         act.build(map);
         // Test it
         final String text = "uhers";
-        act.parseText(text, (begin, end, value) -> {
-            System.out.printf("[%d:%d]=%s\n", begin, end, value);
-            assertEquals(text.substring(begin, end), value);
+        act.parseText(text, new AhoCorasickDoubleArrayTrie.IHit<String>()
+        {
+            @Override
+            public void hit(int begin, int end, String value)
+            {
+                System.out.printf("[%d:%d]=%s\n", begin, end, value);
+                assertEquals(text.substring(begin, end), value);
+            }
         });
         List<AhoCorasickDoubleArrayTrie<String>.Hit<String>> segmentList = act.parseText(text);
         System.out.println(segmentList);
@@ -101,7 +106,7 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         ahoCorasickDoubleArrayTrie.build(dictionaryMap);
         // Let's test the speed of the two Aho-Corasick automata
         long start = System.currentTimeMillis();
-        System.out.printf("Parsing document which has %d characters, with a dictionary of %d words.\n", text.length(), dictionary.size());
+        System.out.printf("Parsing document which contains %d characters, with a dictionary of %d words.\n", text.length(), dictionary.size());
         ahoCorasickNaive.parseText(text);
         long costTimeNaive = System.currentTimeMillis() - start;
         start = System.currentTimeMillis();

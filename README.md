@@ -39,12 +39,12 @@ Setting up the `AhoCorasickDoubleArrayTrie` is a piece of cake:
         List<AhoCorasickDoubleArrayTrie<String>.Hit<String>> segmentList = act.parseText(text);
 ```
 
-Of course, there remains many usefull method to be discoverd, feel free to try:
+Of course, there remains many useful methods to be discovered, feel free to try:
 * Use a `Map<String, Object>` to assign a Object as value to a keyword.
 * Store the `AhoCorasickDoubleArrayTrie` to disk by calling `save` method.
 * Restore the `AhoCorasickDoubleArrayTrie` from disk by calling `load` method.
 
-In normal situations you probably do not need a huge segmentList, then please try this:
+In other situations you probably do not need a huge segmentList, then please try this:
 
 ```java
         act.parseText(text, new AhoCorasickDoubleArrayTrie.IHit<String>()
@@ -68,20 +68,22 @@ Comparison
 -----
 I compared my AhoCorasickDoubleArrayTrie with robert-bor's aho-corasick, ACDAT represents for AhoCorasickDoubleArrayTrie and Naive repesents for aho-corasick, the result is :
 ```
-Parsing document which has 3409283 characters, with a dictionary of 127142 words.
+Parsing English document which contains 3409283 characters, with a dictionary of 127142 words.
                	Naive          	ACDAT          
-time           	589            	333            
+time(ms)        589            	333            
 char/s         	5788256.37     	10238087.09    
-rate           	1.00           	1.77           
+speed           1.00           	1.77           
 ===========================================================================
-Parsing document which has 1290573 characters, with a dictionary of 146047 words.
+Parsing Chinese document which contains 1290573 characters, with a dictionary of 146047 words.
                	Naive          	ACDAT          
-time           	316            	70             
+time(ms)        316            	70             
 char/s         	4084091.77     	18436757.14    
-rate           	1.00           	4.51           
+speed           1.00           	4.51           
 ===========================================================================
 ```
 
+In English test, AhoCorasickDoubleArrayTrie is 1.77 times faster. When it comes to Chinese, AhoCorasickDoubleArrayTrie is 4.51 times faster.
+Feel free to re-run this test in TestAhoCorasickDoubleArrayTrie, the test data is ready for you.
 
 
 License
