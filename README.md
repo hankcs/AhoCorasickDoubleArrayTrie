@@ -40,7 +40,7 @@ Setting up the `AhoCorasickDoubleArrayTrie` is a piece of cake:
 ```
 
 Of course, there remains many useful methods to be discovered, feel free to try:
-* Use a `Map<String, Object>` to assign a Object as value to a keyword.
+* Use a `Map<String, SomeObject>` to assign a `SomeObject` as value to a keyword.
 * Store the `AhoCorasickDoubleArrayTrie` to disk by calling `save` method.
 * Restore the `AhoCorasickDoubleArrayTrie` from disk by calling `load` method.
 
@@ -82,9 +82,13 @@ rate           	1.00           	4.80
 ===========================================================================
 ```
 
-In English test, AhoCorasickDoubleArrayTrie is 1.87 times faster. When it comes to Chinese, AhoCorasickDoubleArrayTrie is 4.35 times faster.
+In English test, AhoCorasickDoubleArrayTrie is 1.91 times faster. When it comes to Chinese, AhoCorasickDoubleArrayTrie is 4.80 times faster.
 Feel free to re-run this test in TestAhoCorasickDoubleArrayTrie, the test data is ready for you.
 
+Thanks
+-----
+This project is inspired by [aho-corasick](https://github.com/robert-bor/aho-corasick) and [darts-clone-java](https://github.com/hiroshi-manabe/darts-clone-java).
+Many thanks!
 
 License
 -------
