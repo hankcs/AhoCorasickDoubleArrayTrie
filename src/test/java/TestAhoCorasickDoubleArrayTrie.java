@@ -121,7 +121,8 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
 
     /**
      * Compare my AhoCorasickDoubleArrayTrie with robert-bor's aho-corasick, notice that robert-bor's aho-corasick is
-     * compiled under jdk1.8, so you will need jdk1.8 to run this test
+     * compiled under jdk1.8, so you will need jdk1.8 to run this test<br>
+     * To avoid JVM wasting time on allocating memory, please use -Xms512m -Xmx512m -Xmn256m .
      * @throws Exception
      */
     public void testBenchmark() throws Exception
