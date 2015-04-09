@@ -19,7 +19,7 @@ Usage
 Setting up the `AhoCorasickDoubleArrayTrie` is a piece of cake:
 ```java
         // Collect test data set
-        Map<String, String> map = new TreeMap<String, String>();
+        TreeMap<String, String> map = new TreeMap<String, String>();
         String[] keyArray = new String[]
                 {
                         "hers",
