@@ -344,7 +344,7 @@ public class AhoCorasickDoubleArrayTrie<V>
     /**
      * build a AhoCorasickDoubleArrayTrie from a Map
      */
-    public void build(Map<String, V> map)
+    public void build(TreeMap<String, V> map)
     {
         new Builder().build(map);
     }
@@ -585,7 +585,7 @@ public class AhoCorasickDoubleArrayTrie<V>
          * 由一个排序好的map创建
          */
         @SuppressWarnings("unchecked")
-        public void build(Map<String, V> map)
+        public void build(TreeMap<String, V> map)
         {
             // 把值保存下来
             v = (V[]) map.values().toArray();

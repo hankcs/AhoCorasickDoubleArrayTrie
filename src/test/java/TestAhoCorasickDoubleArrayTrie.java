@@ -27,7 +27,7 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
     public void testBuildAndParseSimply() throws Exception
     {
         // Collect test data set
-        Map<String, String> map = new TreeMap<String, String>();
+        TreeMap<String, String> map = new TreeMap<String, String>();
         String[] keyArray = new String[]
                 {
                         "hers",
@@ -95,18 +95,18 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         {
             ahoCorasickNaive.addKeyword(word);
         }
-        ahoCorasickNaive.parseText("");
+        ahoCorasickNaive.parseText(""); // More fairly, robert-bor's implementation needs to call this to build ac automata.
         // Build a AhoCorasickDoubleArrayTrie implemented by hankcs
         AhoCorasickDoubleArrayTrie<String> ahoCorasickDoubleArrayTrie = new AhoCorasickDoubleArrayTrie<String>();
-        Map<String, String> dictionaryMap = new TreeMap<String, String>();
+        TreeMap<String, String> dictionaryMap = new TreeMap<String, String>();
         for (String word : dictionary)
         {
             dictionaryMap.put(word, word);  // we use the same text as the property of a word
         }
         ahoCorasickDoubleArrayTrie.build(dictionaryMap);
         // Let's test the speed of the two Aho-Corasick automata
-        long start = System.currentTimeMillis();
         System.out.printf("Parsing document which contains %d characters, with a dictionary of %d words.\n", text.length(), dictionary.size());
+        long start = System.currentTimeMillis();
         ahoCorasickNaive.parseText(text);
         long costTimeNaive = System.currentTimeMillis() - start;
         start = System.currentTimeMillis();
