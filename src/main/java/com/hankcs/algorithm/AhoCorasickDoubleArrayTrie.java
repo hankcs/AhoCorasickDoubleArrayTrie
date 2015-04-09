@@ -1,6 +1,5 @@
 package com.hankcs.algorithm;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,7 +14,7 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class AhoCorasickDoubleArrayTrie<V>
 {
     /**
-     * 双数组值check
+     * 双数组之check
      */
     protected int check[];
     /**
@@ -350,27 +349,6 @@ public class AhoCorasickDoubleArrayTrie<V>
         new Builder().build(map);
     }
 
-    /**
-     * 获取直接相连的子节点
-     *
-     * @param parent   父节点
-     * @param siblings （子）兄弟节点
-     * @return 兄弟节点个数
-     */
-    private int fetch(State parent, List<Map.Entry<Integer, State>> siblings)
-    {
-        if (parent.isAcceptable())
-        {
-            State fakeNode = new State(-(parent.getDepth() + 1));  // 此节点是parent的子节点，同时具备parent的输出
-            fakeNode.addEmit(parent.getLargestValueId());
-            siblings.add(new AbstractMap.SimpleEntry<Integer, State>(0, fakeNode));
-        }
-        for (Map.Entry<Character, State> entry : parent.getSuccess().entrySet())
-        {
-            siblings.add(new AbstractMap.SimpleEntry<Integer, State>(entry.getKey() + 1, entry.getValue()));
-        }
-        return siblings.size();
-    }
 
     /**
      * 精确匹配
@@ -622,6 +600,28 @@ public class AhoCorasickDoubleArrayTrie<V>
             constructFailureStates();
             rootState = null;
             loseWeight();
+        }
+
+        /**
+         * 获取直接相连的子节点
+         *
+         * @param parent   父节点
+         * @param siblings （子）兄弟节点
+         * @return 兄弟节点个数
+         */
+        private int fetch(State parent, List<Map.Entry<Integer, State>> siblings)
+        {
+            if (parent.isAcceptable())
+            {
+                State fakeNode = new State(-(parent.getDepth() + 1));  // 此节点是parent的子节点，同时具备parent的输出
+                fakeNode.addEmit(parent.getLargestValueId());
+                siblings.add(new AbstractMap.SimpleEntry<Integer, State>(0, fakeNode));
+            }
+            for (Map.Entry<Character, State> entry : parent.getSuccess().entrySet())
+            {
+                siblings.add(new AbstractMap.SimpleEntry<Integer, State>(entry.getKey() + 1, entry.getValue()));
+            }
+            return siblings.size();
         }
 
         /**

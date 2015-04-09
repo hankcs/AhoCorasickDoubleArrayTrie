@@ -40,11 +40,11 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
             map.put(key, key);
         }
         // Build an AhoCorasickDoubleArrayTrie
-        AhoCorasickDoubleArrayTrie<String> act = new AhoCorasickDoubleArrayTrie<String>();
-        act.build(map);
+        AhoCorasickDoubleArrayTrie<String> acdat = new AhoCorasickDoubleArrayTrie<String>();
+        acdat.build(map);
         // Test it
         final String text = "uhers";
-        act.parseText(text, new AhoCorasickDoubleArrayTrie.IHit<String>()
+        acdat.parseText(text, new AhoCorasickDoubleArrayTrie.IHit<String>()
         {
             @Override
             public void hit(int begin, int end, String value)
@@ -53,8 +53,8 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
                 assertEquals(text.substring(begin, end), value);
             }
         });
-        List<AhoCorasickDoubleArrayTrie<String>.Hit<String>> segmentList = act.parseText(text);
-        System.out.println(segmentList);
+        List<AhoCorasickDoubleArrayTrie<String>.Hit<String>> wordList = acdat.parseText(text);
+        System.out.println(wordList);
     }
 
     private String loadText(String path) throws IOException
@@ -119,6 +119,11 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         System.out.println("===========================================================================");
     }
 
+    /**
+     * Compare my AhoCorasickDoubleArrayTrie with robert-bor's aho-corasick, notice that robert-bor's aho-corasick is
+     * compiled under jdk1.8, so you will need jdk1.8 to run this test
+     * @throws Exception
+     */
     public void testBenchmark() throws Exception
     {
         runTest("en/dictionary.txt", "en/text.txt");

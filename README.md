@@ -10,9 +10,9 @@ You may heard that Aho-Corasick algorithm is fast for parsing text with a huge d
 * adding semantics to plain text
 * checking against a dictionary to see if syntactic errors were made
 
-But most implementation use a `TreeMap<Character, State>` to store the *goto* structure, which costs `O(ln(t))` time, `t` is the largest amount of a word's common suffixes. The final complexity is `O(n * ln(t))`, absolutely `t > 2`, so `n * ln(t) > n `. The others used a `HashMap`, which wasted too much memory, and still remained slowly.
+But most implementation use a `TreeMap<Character, State>` to store the *goto* structure, which costs `O(ln(t))` time, `t` is the largest amount of a word's common prefixes. The final complexity is `O(n * ln(t))`, absolutely `t > 2`, so `n * ln(t) > n `. The others used a `HashMap`, which wasted too much memory, and still remained slowly.
 
-I improve it by replace the `XXXMap` to a Double Array Trie, whose time complexity is just `O(1)`, thus we get a total complexity of exactly `O(n)`, and take a perfect balance of time and memory. Yes, its speed is not related to the length or language or common suffix of the words of a dictionary.
+I improve it by replace the `XXXMap` to a Double Array Trie, whose time complexity is just `O(1)`, thus we get a total complexity of exactly `O(n)`, and take a perfect balance of time and memory. Yes, its speed is not related to the length or language or common prefix of the words of a dictionary.
 
 Usage
 -----
@@ -32,11 +32,11 @@ Setting up the `AhoCorasickDoubleArrayTrie` is a piece of cake:
             map.put(key, key);
         }
         // Build an AhoCorasickDoubleArrayTrie
-        AhoCorasickDoubleArrayTrie<String> act = new AhoCorasickDoubleArrayTrie<String>();
-        act.build(map);
+        AhoCorasickDoubleArrayTrie<String> acdat = new AhoCorasickDoubleArrayTrie<String>();
+        acdat.build(map);
         // Test it
         final String text = "uhers";
-        List<AhoCorasickDoubleArrayTrie<String>.Hit<String>> segmentList = act.parseText(text);
+        List<AhoCorasickDoubleArrayTrie<String>.Hit<String>> wordList = acdat.parseText(text);
 ```
 
 Of course, there remains many useful methods to be discovered, feel free to try:
@@ -44,10 +44,10 @@ Of course, there remains many useful methods to be discovered, feel free to try:
 * Store the `AhoCorasickDoubleArrayTrie` to disk by calling `save` method.
 * Restore the `AhoCorasickDoubleArrayTrie` from disk by calling `load` method.
 
-In other situations you probably do not need a huge segmentList, then please try this:
+In other situations you probably do not need a huge wordList, then please try this:
 
 ```java
-        act.parseText(text, new AhoCorasickDoubleArrayTrie.IHit<String>()
+        acdat.parseText(text, new AhoCorasickDoubleArrayTrie.IHit<String>()
         {
             @Override
             public void hit(int begin, int end, String value)
@@ -59,7 +59,7 @@ In other situations you probably do not need a huge segmentList, then please try
 
 or a lambda function
 ```
-        act.parseText(text, (begin, end, value) -> {
+        acdat.parseText(text, (begin, end, value) -> {
             System.out.printf("[%d:%d]=%s\n", begin, end, value);
         });
 ```
@@ -70,15 +70,15 @@ I compared my AhoCorasickDoubleArrayTrie with robert-bor's aho-corasick, ACDAT r
 ```
 Parsing English document which contains 3409283 characters, with a dictionary of 127142 words.
                	Naive          	ACDAT          
-time           	571            	306            
-char/s         	5970723.29     	11141447.71    
-rate           	1.00           	1.87           
+time           	554            	290            
+char/s         	6153940.43     	11756148.28    
+rate           	1.00           	1.91           
 ===========================================================================
 Parsing Chinese document which contains 1290573 characters, with a dictionary of 146047 words.
                	Naive          	ACDAT          
-time           	270            	62             
-char/s         	4779900.00     	20815693.55    
-rate           	1.00           	4.35           
+time           	269            	56             
+char/s         	4797669.14     	23045946.43    
+rate           	1.00           	4.80           
 ===========================================================================
 ```
 

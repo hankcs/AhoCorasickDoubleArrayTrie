@@ -6,7 +6,7 @@
 
     <groupId>AhoCorasickDoubleArrayTrie</groupId>
     <artifactId>aho-corasick-double-array-trie</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <build>
         <plugins>
