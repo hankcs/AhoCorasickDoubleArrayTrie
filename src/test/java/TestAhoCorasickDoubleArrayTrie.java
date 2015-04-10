@@ -137,7 +137,14 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         ahoCorasickNaive.parseText(text);
         long costTimeNaive = System.currentTimeMillis() - start;
         start = System.currentTimeMillis();
-        ahoCorasickDoubleArrayTrie.parseText(text);
+        ahoCorasickDoubleArrayTrie.parseText(text, new AhoCorasickDoubleArrayTrie.IHit<String>()
+        {
+            @Override
+            public void hit(int begin, int end, String value)
+            {
+
+            }
+        });
         long costTimeACDAT = System.currentTimeMillis() - start;
         System.out.printf("%-15s\t%-15s\t%-15s\n", "", "Naive", "ACDAT");
         System.out.printf("%-15s\t%-15d\t%-15d\n", "time", costTimeNaive, costTimeACDAT);

@@ -14,33 +14,33 @@ import java.util.concurrent.LinkedBlockingDeque;
 public class AhoCorasickDoubleArrayTrie<V>
 {
     /**
-     * 双数组之check
+     * check array of the Double Array Trie structure
      */
     protected int check[];
     /**
-     * 双数组之base
+     * base array of the Double Array Trie structure
      */
     protected int base[];
     /**
-     * fail表
+     * fail table of the Aho Corasick automata
      */
     int fail[];
     /**
-     * 输出表
+     * out table of the Aho Corasick automata
      */
     int[][] output;
     /**
-     * 保存value
+     * outer value array
      */
     protected V[] v;
 
     /**
-     * 每个key的长度
+     * the length of every key
      */
     protected int[] l;
 
     /**
-     * base 和 check 的大小
+     * the size of base and check array
      */
     protected int size;
 
@@ -259,7 +259,7 @@ public class AhoCorasickDoubleArrayTrie<V>
     }
 
     /**
-     * 转移状态，支持failure转移
+     * transmit state, supports failure function
      *
      * @param currentState
      * @param character
@@ -277,7 +277,7 @@ public class AhoCorasickDoubleArrayTrie<V>
     }
 
     /**
-     * 保存输出
+     * store output
      *
      * @param position
      * @param currentState
@@ -296,7 +296,7 @@ public class AhoCorasickDoubleArrayTrie<V>
     }
 
     /**
-     * 转移状态
+     * transition of a state
      *
      * @param current
      * @param c
@@ -318,7 +318,7 @@ public class AhoCorasickDoubleArrayTrie<V>
     }
 
     /**
-     * c转移，如果是根节点则返回自己
+     * transition of a state, if the state is root and it failed, then returns the root
      *
      * @param nodePos
      * @param c
@@ -351,10 +351,10 @@ public class AhoCorasickDoubleArrayTrie<V>
 
 
     /**
-     * 精确匹配
+     * match exactly by a key
      *
-     * @param key 键
-     * @return 值的下标
+     * @param key the key
+     * @return the index of the key, you can use it as a perfect hash function
      */
     public int exactMatchSearch(String key)
     {
@@ -362,7 +362,7 @@ public class AhoCorasickDoubleArrayTrie<V>
     }
 
     /**
-     * 精确匹配
+     * match exactly by a key
      *
      * @param key
      * @param pos
@@ -403,13 +403,13 @@ public class AhoCorasickDoubleArrayTrie<V>
     }
 
     /**
-     * 精确查询
+     * match exactly by a key
      *
-     * @param keyChars 键的char数组
-     * @param pos      char数组的起始位置
-     * @param len      键的长度
-     * @param nodePos  开始查找的位置（本参数允许从非根节点查询）
-     * @return 查到的节点代表的value ID，负数表示不存在
+     * @param keyChars the char array of the key
+     * @param pos      the begin index of char array
+     * @param len      the length of the key
+     * @param nodePos  the starting position of the node for searching
+     * @return the value index of the key, minus indicates null
      */
     private int exactMatchSearch(char[] keyChars, int pos, int len, int nodePos)
     {
@@ -543,7 +543,7 @@ public class AhoCorasickDoubleArrayTrie<V>
 //    }
 
     /**
-     * 大小，即包含多少个模式串
+     * Get the size of the keywords
      * @return
      */
     public int size()
@@ -552,32 +552,32 @@ public class AhoCorasickDoubleArrayTrie<V>
     }
 
     /**
-     * 构建工具
+     * A builder to build the AhoCorasickDoubleArrayTrie
      */
     private class Builder
     {
         /**
-         * 根节点，仅仅用于构建过程
+         * the root state of trie
          */
         private State rootState = new State();
         /**
-         * 是否占用，仅仅用于构建
+         * whether the position has been used
          */
         private boolean used[];
         /**
-         * 已分配在内存中的大小
+         * the allocSize of the dynamic array
          */
         private int allocSize;
         /**
-         * 一个控制增长速度的变量
+         * a parameter controls the memory growth speed of the dynamic array
          */
         private int progress;
         /**
-         * 下一个插入的位置将从此开始搜索
+         * the next position to check unused memory
          */
         private int nextCheckPos;
         /**
-         * 键值对的大小
+         * the size of the key-pair sets
          */
         private int keySize;
 
@@ -604,11 +604,11 @@ public class AhoCorasickDoubleArrayTrie<V>
         }
 
         /**
-         * 获取直接相连的子节点
+         * fetch siblings of a parent node
          *
-         * @param parent   父节点
-         * @param siblings （子）兄弟节点
-         * @return 兄弟节点个数
+         * @param parent   parent node
+         * @param siblings parent node's child nodes, i . e . the siblings
+         * @return the amount of the siblings
          */
         private int fetch(State parent, List<Map.Entry<Integer, State>> siblings)
         {
@@ -626,10 +626,10 @@ public class AhoCorasickDoubleArrayTrie<V>
         }
 
         /**
-         * 添加一个键
+         * add a keyword
          *
-         * @param keyword 键
-         * @param index   值的下标
+         * @param keyword a keyword
+         * @param index   the index of the keyword
          */
         private void addKeyword(String keyword, int index)
         {
@@ -643,9 +643,9 @@ public class AhoCorasickDoubleArrayTrie<V>
         }
 
         /**
-         * 一系列键
+         * add a collection of keywords
          *
-         * @param keywordSet
+         * @param keywordSet the collection holding keywords
          */
         private void addAllKeyword(Collection<String> keywordSet)
         {
@@ -657,7 +657,7 @@ public class AhoCorasickDoubleArrayTrie<V>
         }
 
         /**
-         * 建立failure表
+         * construct failure table
          */
         private void constructFailureStates()
         {
@@ -698,7 +698,7 @@ public class AhoCorasickDoubleArrayTrie<V>
         }
 
         /**
-         * 建立output表
+         * construct output table
          */
         private void constructOutput(State targetState)
         {
@@ -730,7 +730,7 @@ public class AhoCorasickDoubleArrayTrie<V>
         }
 
         /**
-         * 拓展数组
+         * allocate the memory of the dynamic array
          *
          * @param newSize
          * @return
@@ -755,10 +755,10 @@ public class AhoCorasickDoubleArrayTrie<V>
         }
 
         /**
-         * 插入节点
+         * insert the siblings to double array trie
          *
-         * @param siblings 等待插入的兄弟节点
-         * @return 插入位置
+         * @param siblings the siblings being inserted
+         * @return the position to insert them
          */
         private int insert(List<Map.Entry<Integer, State>> siblings)
         {
@@ -845,7 +845,7 @@ public class AhoCorasickDoubleArrayTrie<V>
         }
 
         /**
-         * 释放空闲的内存
+         * free the unnecessary memory
          */
         private void loseWeight()
         {
