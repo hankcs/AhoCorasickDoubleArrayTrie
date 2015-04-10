@@ -14,6 +14,8 @@ But most implementation use a `TreeMap<Character, State>` to store the *goto* st
 
 I improve it by replace the `XXXMap` to a Double Array Trie, whose time complexity is just `O(1)`, thus we get a total complexity of exactly `O(n)`, and take a perfect balance of time and memory. Yes, its speed is not related to the length or language or common prefix of the words of a dictionary.
 
+This implementation has been widely used in my [HanLP: Han Language Processing](https://github.com/hankcs/HanLP) package. I hope it can serve as a common data structure library in projects handling text or NLP task. 
+
 Usage
 -----
 Setting up the `AhoCorasickDoubleArrayTrie` is a piece of cake:
