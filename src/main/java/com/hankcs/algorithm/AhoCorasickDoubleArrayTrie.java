@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.concurrent.LinkedBlockingDeque;
 
 /**
- * 基于双数组Trie树的AhoCorasick自动机
+ * An implemention of Aho Corasick algorithm based on Double Array Trie
  *
  * @author hankcs
  */
@@ -45,10 +45,9 @@ public class AhoCorasickDoubleArrayTrie<V>
     protected int size;
 
     /**
-     * 匹配母文本
-     *
-     * @param text 一些文本
-     * @return 一个pair列表
+     * Parse text
+     * @param text The text
+     * @return a list of outputs
      */
     public List<Hit<V>> parseText(String text)
     {
@@ -66,10 +65,9 @@ public class AhoCorasickDoubleArrayTrie<V>
     }
 
     /**
-     * 处理文本
-     *
-     * @param text      文本
-     * @param processor 处理器
+     * Parse text
+     * @param text The text
+     * @param processor A processor which handles the output
      */
     public void parseText(String text, IHit<V> processor)
     {
@@ -91,9 +89,9 @@ public class AhoCorasickDoubleArrayTrie<V>
     }
 
     /**
-     * 处理文本
-     * @param text
-     * @param processor
+     * Parse text
+     * @param text The text
+     * @param processor A processor which handles the output
      */
     public void parseText(char[] text, IHit<V> processor)
     {
@@ -115,9 +113,9 @@ public class AhoCorasickDoubleArrayTrie<V>
     }
 
     /**
-     * 处理文本
-     * @param text
-     * @param processor
+     * Parse text
+     * @param text The text
+     * @param processor A processor which handles the output
      */
     public void parseText(char[] text, IHitFull<V> processor)
     {
@@ -140,9 +138,9 @@ public class AhoCorasickDoubleArrayTrie<V>
 
 
     /**
-     * 持久化
-     * @param out 一个ObjectOutputStream
-     * @throws IOException 可能的IO异常
+     * Save
+     * @param out An ObjectOutputStream object
+     * @throws IOException Some IOException
      */
     public void save(ObjectOutputStream out) throws IOException
     {
@@ -155,8 +153,8 @@ public class AhoCorasickDoubleArrayTrie<V>
     }
 
     /**
-     * 载入
-     * @param in 一个ObjectInputStream
+     * Load
+     * @param in An ObjectInputStream object
      * @throws IOException
      * @throws ClassNotFoundException
      */
@@ -171,8 +169,8 @@ public class AhoCorasickDoubleArrayTrie<V>
     }
 
     /**
-     * 获取值
-     * @param key 键
+     * Get value by a String key, just like a map.get() method
+     * @param key The key
      * @return
      */
     public V get(String key)
@@ -187,10 +185,10 @@ public class AhoCorasickDoubleArrayTrie<V>
     }
 
     /**
-     * 从值数组中提取下标为index的值<br>
-     *     注意为了效率，此处不进行参数校验
-     * @param index 下标
-     * @return 值
+     * Pick the value by index in value array <br>
+     * Notice that to be more efficiently, this method DONOT check the parameter
+     * @param index The index
+     * @return The value
      */
     public V get(int index)
     {
@@ -198,50 +196,51 @@ public class AhoCorasickDoubleArrayTrie<V>
     }
 
     /**
-     * 命中一个模式串的处理方法
+     * Processor handles the output when hit a keyword
      */
     public interface IHit<V>
     {
         /**
-         * 命中一个模式串
-         *
-         * @param begin 模式串在母文本中的起始位置
-         * @param end   模式串在母文本中的终止位置
-         * @param value 模式串对应的值
+         * Hit a keyword, you can use some code like text.substring(begin, end) to get the keyword
+         * @param begin the beginning index, inclusive.
+         * @param end   the ending index, exclusive.
+         * @param value the value assigned to the keyword
          */
         void hit(int begin, int end, V value);
     }
 
+    /**
+     * Processor handles the output when hit a keyword, with more detail
+     */
     public interface IHitFull<V>
     {
         /**
-         *
-         * 命中一个模式串
-         * @param begin 模式串在母文本中的起始位置
-         * @param end   模式串在母文本中的终止位置
-         * @param value 模式串对应的值
-         * @param index 模式串对应的值的下标
+         * Hit a keyword, you can use some code like text.substring(begin, end) to get the keyword
+         * @param begin the beginning index, inclusive.
+         * @param end   the ending index, exclusive.
+         * @param value the value assigned to the keyword
+         * @param index the index of the value assigned to the keyword, you can use the integer as a perfect hash value
          */
         void hit(int begin, int end, V value, int index);
     }
 
     /**
-     * 一个命中结果
+     * A result output
      *
-     * @param <V>
+     * @param <V> the value type
      */
     public class Hit<V>
     {
         /**
-         * 模式串在母文本中的起始位置
+         * the beginning index, inclusive.
          */
         public final int begin;
         /**
-         * 模式串在母文本中的终止位置
+         * the ending index, exclusive.
          */
         public final int end;
         /**
-         * 模式串对应的值
+         * the value assigned to the keyword
          */
         public final V value;
 
@@ -342,9 +341,10 @@ public class AhoCorasickDoubleArrayTrie<V>
 
 
     /**
-     * build a AhoCorasickDoubleArrayTrie from a Map
+     * Build a AhoCorasickDoubleArrayTrie from a map
+     * @param map a map containing key-value pairs
      */
-    public void build(TreeMap<String, V> map)
+    public void build(Map<String, V> map)
     {
         new Builder().build(map);
     }
@@ -582,10 +582,11 @@ public class AhoCorasickDoubleArrayTrie<V>
         private int keySize;
 
         /**
-         * 由一个排序好的map创建
+         * Build from a map
+         * @param map a map containing key-value pairs
          */
         @SuppressWarnings("unchecked")
-        public void build(TreeMap<String, V> map)
+        public void build(Map<String, V> map)
         {
             // 把值保存下来
             v = (V[]) map.values().toArray();

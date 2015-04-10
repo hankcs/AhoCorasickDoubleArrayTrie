@@ -57,10 +57,37 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         System.out.println(wordList);
     }
 
+    public void testBuildAndParseWithBigFile() throws Exception
+    {
+        // Load test data from disk
+        Set<String> dictionary = loadDictionary("cn/dictionary.txt");
+        final String text = loadText("cn/text.txt");
+        // You can use any type of Map to hold data
+        Map<String, String> map = new TreeMap<String, String>();
+//        Map<String, String> map = new HashMap<String, String>();
+//        Map<String, String> map = new LinkedHashMap<String, String>();
+        for (String key : dictionary)
+        {
+            map.put(key, key);
+        }
+        // Build an AhoCorasickDoubleArrayTrie
+        AhoCorasickDoubleArrayTrie<String> acdat = new AhoCorasickDoubleArrayTrie<String>();
+        acdat.build(map);
+        // Test it
+        acdat.parseText(text, new AhoCorasickDoubleArrayTrie.IHit<String>()
+        {
+            @Override
+            public void hit(int begin, int end, String value)
+            {
+                assertEquals(text.substring(begin, end), value);
+            }
+        });
+    }
+
     private String loadText(String path) throws IOException
     {
         StringBuilder sbText = new StringBuilder();
-        BufferedReader br = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream(path)));
+        BufferedReader br = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream(path), "UTF-8"));
         String line;
         while ((line = br.readLine()) != null)
         {
@@ -74,7 +101,7 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
     private Set<String> loadDictionary(String path) throws IOException
     {
         Set<String> dictionary = new TreeSet<String>();
-        BufferedReader br = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream(path)));
+        BufferedReader br = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream(path), "UTF-8"));
         String line;
         while ((line = br.readLine()) != null)
         {
