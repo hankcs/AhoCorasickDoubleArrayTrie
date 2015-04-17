@@ -1,7 +1,7 @@
 AhoCorasickDoubleArrayTrie
 ============
 
-An extremely fast implementation of Aho Corasick algorithm based on Double Array Trie structure. Its speed is 1.7 to 4.5 times of naive implementations, perhaps it's the fastest implementation so far ;-)
+An extremely fast implementation of Aho Corasick algorithm based on Double Array Trie structure. Its speed is 5 to 9 times of naive implementations, perhaps it's the fastest implementation so far ;-)
 
 Introduction
 ------------
@@ -12,7 +12,7 @@ You may heard that Aho-Corasick algorithm is fast for parsing text with a huge d
 
 But most implementation use a `TreeMap<Character, State>` to store the *goto* structure, which costs `O(ln(t))` time, `t` is the largest amount of a word's common prefixes. The final complexity is `O(n * ln(t))`, absolutely `t > 2`, so `n * ln(t) > n `. The others used a `HashMap`, which wasted too much memory, and still remained slowly.
 
-I improve it by replace the `XXXMap` to a Double Array Trie, whose time complexity is just `O(1)`, thus we get a total complexity of exactly `O(n)`, and take a perfect balance of time and memory. Yes, its speed is not related to the length or language or common prefix of the words of a dictionary.
+I improved it by replacing the `XXXMap` to a Double Array Trie, whose time complexity is just `O(1)`, thus we get a total complexity of exactly `O(n)`, and take a perfect balance of time and memory. Yes, its speed is not related to the length or language or common prefix of the words of a dictionary.
 
 This implementation has been widely used in my [HanLP: Han Language Processing](https://github.com/hankcs/HanLP) package. I hope it can serve as a common data structure library in projects handling text or NLP task. 
 
@@ -71,21 +71,21 @@ Comparison
 I compared my AhoCorasickDoubleArrayTrie with robert-bor's aho-corasick, ACDAT represents for AhoCorasickDoubleArrayTrie and Naive repesents for aho-corasick, the result is :
 ```
 Parsing English document which contains 3409283 characters, with a dictionary of 127142 words.
-               	Naive          	ACDAT          
-time           	554            	290            
-char/s         	6153940.43     	11756148.28    
-rate           	1.00           	1.91           
+               	Naive          	ACDAT
+time           	607            	102
+char/s         	5616611.20     	33424343.14
+rate           	1.00           	5.95
 ===========================================================================
 Parsing Chinese document which contains 1290573 characters, with a dictionary of 146047 words.
-               	Naive          	ACDAT          
-time           	269            	56             
-char/s         	4797669.14     	23045946.43    
-rate           	1.00           	4.80           
+               	Naive          	ACDAT
+time           	319            	35
+char/s         	2609156.74     	23780600.00
+rate           	1.00           	9.11
 ===========================================================================
 ```
 
-In English test, AhoCorasickDoubleArrayTrie is 1.91 times faster. When it comes to Chinese, AhoCorasickDoubleArrayTrie is 4.80 times faster.
-Feel free to re-run this test in TestAhoCorasickDoubleArrayTrie, the test data is ready for you.
+In English test, AhoCorasickDoubleArrayTrie is 5 times faster. When it comes to Chinese, AhoCorasickDoubleArrayTrie is 9 times faster.
+This test is conducted under i7 2.0GHz, -Xms512m -Xmx512m -Xmn256m. Feel free to re-run this test in TestAhoCorasickDoubleArrayTrie, the test data is ready for you.
 
 Thanks
 -----

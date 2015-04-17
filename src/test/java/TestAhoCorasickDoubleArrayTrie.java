@@ -14,9 +14,7 @@ import com.hankcs.algorithm.AhoCorasickDoubleArrayTrie;
 import junit.framework.TestCase;
 import org.ahocorasick.trie.Trie;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -24,7 +22,7 @@ import java.util.*;
  */
 public class TestAhoCorasickDoubleArrayTrie extends TestCase
 {
-    public void testBuildAndParseSimply() throws Exception
+    private AhoCorasickDoubleArrayTrie<String> buildASimpleAhoCorasickDoubleArrayTrie()
     {
         // Collect test data set
         TreeMap<String, String> map = new TreeMap<String, String>();
@@ -42,6 +40,11 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         // Build an AhoCorasickDoubleArrayTrie
         AhoCorasickDoubleArrayTrie<String> acdat = new AhoCorasickDoubleArrayTrie<String>();
         acdat.build(map);
+        return acdat;
+    }
+
+    private void validateASimpleAhoCorasickDoubleArrayTrie(AhoCorasickDoubleArrayTrie<String> acdat)
+    {
         // Test it
         final String text = "uhers";
         acdat.parseText(text, new AhoCorasickDoubleArrayTrie.IHit<String>()
@@ -53,8 +56,14 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
                 assertEquals(text.substring(begin, end), value);
             }
         });
+        // Or simply use
         List<AhoCorasickDoubleArrayTrie<String>.Hit<String>> wordList = acdat.parseText(text);
         System.out.println(wordList);
+    }
+    public void testBuildAndParseSimply() throws Exception
+    {
+        AhoCorasickDoubleArrayTrie<String> acdat = buildASimpleAhoCorasickDoubleArrayTrie();
+        validateASimpleAhoCorasickDoubleArrayTrie(acdat);
     }
 
     public void testBuildAndParseWithBigFile() throws Exception
@@ -163,5 +172,19 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
     {
         runTest("en/dictionary.txt", "en/text.txt");
         runTest("cn/dictionary.txt", "cn/text.txt");
+    }
+
+    public void testSaveAndLoad() throws Exception
+    {
+        AhoCorasickDoubleArrayTrie<String> acdat = buildASimpleAhoCorasickDoubleArrayTrie();
+        final String tmpPath = System.getProperty("java.io.tmpdir").replace("\\\\", "/") + "/acdat.tmp";
+        System.out.println("Saving acdat to: " + tmpPath);
+        ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(tmpPath));
+        out.writeObject(acdat);
+        out.close();
+        System.out.println("Loading acdat from: " + tmpPath);
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(tmpPath));
+        acdat = (AhoCorasickDoubleArrayTrie<String>) in.readObject();
+        validateASimpleAhoCorasickDoubleArrayTrie(acdat);
     }
 }

@@ -3,6 +3,7 @@ package com.hankcs.algorithm;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.*;
 import java.util.concurrent.LinkedBlockingDeque;
 
@@ -11,7 +12,7 @@ import java.util.concurrent.LinkedBlockingDeque;
  *
  * @author hankcs
  */
-public class AhoCorasickDoubleArrayTrie<V>
+public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 {
     /**
      * check array of the Double Array Trie structure
@@ -24,11 +25,11 @@ public class AhoCorasickDoubleArrayTrie<V>
     /**
      * fail table of the Aho Corasick automata
      */
-    int fail[];
+    protected int fail[];
     /**
-     * out table of the Aho Corasick automata
+     * output table of the Aho Corasick automata
      */
-    int[][] output;
+    protected int[][] output;
     /**
      * outer value array
      */
