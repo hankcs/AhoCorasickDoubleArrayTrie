@@ -13,6 +13,8 @@
 import com.hankcs.algorithm.AhoCorasickDoubleArrayTrie;
 import junit.framework.TestCase;
 import org.ahocorasick.trie.Trie;
+import org.ardverk.collection.PatriciaTrie;
+import org.ardverk.collection.StringKeyAnalyzer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -74,7 +76,8 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
     private Set<String> loadDictionary(String path) throws IOException
     {
         Set<String> dictionary = new TreeSet<String>();
-        BufferedReader br = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream(path)));
+        BufferedReader br = new BufferedReader(new InputStreamReader(Thread.currentThread().getContextClassLoader().getResourceAsStream(
+            path)));
         String line;
         while ((line = br.readLine()) != null)
         {
@@ -89,6 +92,7 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
     {
         Set<String> dictionary = loadDictionary(dictionaryPath);
         String text = loadText(textPath);
+
         // Build a ahoCorasickNaive implemented by robert-bor
         Trie ahoCorasickNaive = new Trie();
         for (String word : dictionary)
@@ -96,6 +100,7 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
             ahoCorasickNaive.addKeyword(word);
         }
         ahoCorasickNaive.parseText("");
+
         // Build a AhoCorasickDoubleArrayTrie implemented by hankcs
         AhoCorasickDoubleArrayTrie<String> ahoCorasickDoubleArrayTrie = new AhoCorasickDoubleArrayTrie<String>();
         Map<String, String> dictionaryMap = new TreeMap<String, String>();
@@ -104,6 +109,16 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
             dictionaryMap.put(word, word);  // we use the same text as the property of a word
         }
         ahoCorasickDoubleArrayTrie.build(dictionaryMap);
+
+        //added by qibaoyuan,Build a patrical trie
+        org.ardverk.collection.Trie<String, String> patriciaTrie = new PatriciaTrie<String, String>(StringKeyAnalyzer.INSTANCE);
+        int maxKeyword=0;
+        for (String word : dictionary)
+        {
+            if(word.length()>maxKeyword)maxKeyword=word.length();
+            patriciaTrie.put(word, word);
+        }
+
         // Let's test the speed of the two Aho-Corasick automata
         long start = System.currentTimeMillis();
         System.out.printf("Parsing document which contains %d characters, with a dictionary of %d words.\n", text.length(), dictionary.size());
@@ -112,10 +127,19 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         start = System.currentTimeMillis();
         ahoCorasickDoubleArrayTrie.parseText(text);
         long costTimeACDAT = System.currentTimeMillis() - start;
-        System.out.printf("%-15s\t%-15s\t%-15s\n", "", "Naive", "ACDAT");
-        System.out.printf("%-15s\t%-15d\t%-15d\n", "time", costTimeNaive, costTimeACDAT);
-        System.out.printf("%-15s\t%-15.2f\t%-15.2f\n", "char/s", (text.length() / (costTimeNaive / 1000.0)), (text.length() / (costTimeACDAT / 1000.0)));
-        System.out.printf("%-15s\t%-15.2f\t%-15.2f\n", "rate", 1.0, costTimeNaive / (double) costTimeACDAT);
+
+        start = System.currentTimeMillis();
+        for (int i=0;i<text.length();i++){
+            for(int j=i+1;j<i+maxKeyword & j<text.length();j++){
+                patriciaTrie.selectKey(text.substring(i,j));
+            }
+        }
+        long costTimePatricia = System.currentTimeMillis() - start;
+
+        System.out.printf("%-15s\t%-15s\t%-15s\t%-15s\n", "", "Naive", "ACDAT", "Patricia");
+        System.out.printf("%-15s\t%-15d\t%-15s\t%-15d\n", "time", costTimeNaive, costTimeACDAT, costTimePatricia);
+        System.out.printf("%-15s\t%-15.2f%-15s\t\t%-15.2f\n", "char/s", (text.length() / (costTimeNaive / 1000.0)), (text.length() / (costTimeACDAT / 1000.0)), (text.length() / (costTimePatricia / 1000.0)));
+        System.out.printf("%-15s\t%-15.2f%-15s\t\t%-15.2f\n", "rate", 1.0, costTimeNaive / (double) costTimeACDAT,costTimeNaive / (double) costTimePatricia);
         System.out.println("===========================================================================");
     }
 

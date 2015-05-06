@@ -103,6 +103,11 @@
             <version>0.2.3</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>patricia</groupId>
+            <artifactId>patricia-trie</artifactId>
+            <version>0.2</version>
+        </dependency>
     </dependencies>
 
 </project>

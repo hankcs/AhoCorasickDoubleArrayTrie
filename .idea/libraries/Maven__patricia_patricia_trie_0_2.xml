@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: patricia:patricia-trie:0.2">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/patricia/patricia-trie/0.2/patricia-trie-0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/patricia/patricia-trie/0.2/patricia-trie-0.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/patricia/patricia-trie/0.2/patricia-trie-0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
