@@ -1,3 +1,15 @@
+/*
+ * <summary></summary>
+ * <author>He Han</author>
+ * <email>hankcs.cn@gmail.com</email>
+ * <create-date>2015/4/6 12:42</create-date>
+ *
+ * <copyright file="AhoCorasickDoubleArrayTrie.java" company="码农场">
+ * Copyright (c) 2003-2016, 码农场. All Right Reserved, http://www.hankcs.com/
+ * You may modify and redistribute as long as this attribution remains.
+ * </copyright>
+ */
+
 package com.hankcs.algorithm;
 
 import java.io.IOException;
@@ -8,7 +20,7 @@ import java.util.*;
 import java.util.concurrent.LinkedBlockingDeque;
 
 /**
- * An implemention of Aho Corasick algorithm based on Double Array Trie
+ * An implementation of Aho Corasick algorithm based on Double Array Trie
  *
  * @author hankcs
  */

@@ -4,9 +4,9 @@
  * <email>hankcs.cn@gmail.com</email>
  * <create-date>2015/4/6 12:42</create-date>
  *
- * <copyright file="TestAhoCorasickDoubleArrayTrie.java" company="�Ϻ���ԭ��Ϣ�Ƽ����޹�˾">
- * Copyright (c) 2003-2014, �Ϻ���ԭ��Ϣ�Ƽ����޹�˾. All Right Reserved, http://www.linrunsoft.com/
- * This source is subject to the LinrunSpace License. Please contact �Ϻ���ԭ��Ϣ�Ƽ����޹�˾ to get more information.
+ * <copyright file="TestAhoCorasickDoubleArrayTrie.java" company="码农场">
+ * Copyright (c) 2003-2016, 码农场. All Right Reserved, http://www.hankcs.com/
+ * You may modify and redistribute as long as this attribution remains.
  * </copyright>
  */
 

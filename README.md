@@ -10,7 +10,7 @@ You may heard that Aho-Corasick algorithm is fast for parsing text with a huge d
 * adding semantics to plain text
 * checking against a dictionary to see if syntactic errors were made
 
-But most implementation use a `TreeMap<Character, State>` to store the *goto* structure, which costs `O(ln(t))` time, `t` is the largest amount of a word's common prefixes. The final complexity is `O(n * ln(t))`, absolutely `t > 2`, so `n * ln(t) > n `. The others used a `HashMap`, which wasted too much memory, and still remained slowly.
+But most implementation use a `TreeMap<Character, State>` to store the *goto* structure, which costs `O(lg(t))` time, `t` is the largest amount of a word's common prefixes. The final complexity is `O(n * lg(t))`, absolutely `t > 2`, so `n * lg(t) > n `. The others used a `HashMap`, which wasted too much memory, and still remained slowly.
 
 I improved it by replacing the `XXXMap` to a Double Array Trie, whose time complexity is just `O(1)`, thus we get a total complexity of exactly `O(n)`, and take a perfect balance of time and memory. Yes, its speed is not related to the length or language or common prefix of the words of a dictionary.
 
@@ -68,7 +68,7 @@ or a lambda function
 
 Comparison
 -----
-I compared my AhoCorasickDoubleArrayTrie with robert-bor's aho-corasick, ACDAT represents for AhoCorasickDoubleArrayTrie and Naive repesents for aho-corasick, the result is :
+I compared my AhoCorasickDoubleArrayTrie with robert-bor's aho-corasick, ACDAT represents for AhoCorasickDoubleArrayTrie and Naive represents for aho-corasick, the result is :
 ```
 Parsing English document which contains 3409283 characters, with a dictionary of 127142 words.
                	Naive          	ACDAT
