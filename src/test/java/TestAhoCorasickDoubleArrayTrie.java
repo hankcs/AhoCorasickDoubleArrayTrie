@@ -1,13 +1,21 @@
 /*
- * <summary></summary>
- * <author>He Han</author>
- * <email>hankcs.cn@gmail.com</email>
- * <create-date>2015/4/6 12:42</create-date>
+ * AhoCorasickDoubleArrayTrie Project
+ *      https://github.com/hankcs/AhoCorasickDoubleArrayTrie
  *
- * <copyright file="TestAhoCorasickDoubleArrayTrie.java" company="码农场">
- * Copyright (c) 2003-2016, 码农场. All Right Reserved, http://www.hankcs.com/
+ * Copyright 2008-2016 hankcs <me@hankcs.com>
  * You may modify and redistribute as long as this attribution remains.
- * </copyright>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 import com.hankcs.algorithm.AhoCorasickDoubleArrayTrie;
