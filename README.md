@@ -1,5 +1,8 @@
 AhoCorasickDoubleArrayTrie
 ============
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.hankcs/aho-corasick-double-array-trie/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.hankcs/aho-corasick-double-array-trie/)
+[![GitHub release](https://img.shields.io/github/release/hankcs/AhoCorasickDoubleArrayTrie.svg)](https://github.com/hankcs/AhoCorasickDoubleArrayTrie/releases)
+[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 An extremely fast implementation of Aho Corasick algorithm based on Double Array Trie structure. Its speed is 5 to 9 times of naive implementations, perhaps it's the fastest implementation so far ;-)
 
@@ -14,7 +17,18 @@ But most implementation use a `TreeMap<Character, State>` to store the *goto* st
 
 I improved it by replacing the `XXXMap` to a Double Array Trie, whose time complexity is just `O(1)`, thus we get a total complexity of exactly `O(n)`, and take a perfect balance of time and memory. Yes, its speed is not related to the length or language or common prefix of the words of a dictionary.
 
-This implementation has been widely used in my [HanLP: Han Language Processing](https://github.com/hankcs/HanLP) package. I hope it can serve as a common data structure library in projects handling text or NLP task. 
+This implementation has been widely used in my [HanLP: Han Language Processing](https://github.com/hankcs/HanLP) package. I hope it can serve as a common data structure library in projects handling text or NLP task.
+
+Dependency
+----------
+Include this dependency in your POM. Be sure to check for the latest version in Maven Central.
+```xml
+<dependency>
+  <groupId>com.hankcs</groupId>
+  <artifactId>aho-corasick-double-array-trie</artifactId>
+  <version>1.0.1</version>
+</dependency>
+```
 
 Usage
 -----

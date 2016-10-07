@@ -4,9 +4,38 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>AhoCorasickDoubleArrayTrie</groupId>
+    <groupId>com.hankcs</groupId>
     <artifactId>aho-corasick-double-array-trie</artifactId>
     <version>1.0.1</version>
+
+    <name>AhoCorasickDoubleArrayTrie</name>
+    <url>https://github.com/hankcs/AhoCorasickDoubleArrayTrie</url>
+    <description>
+        An extremely fast implementation of Aho Corasick algorithm based on Double Array Trie.
+    </description>
+    <organization>
+        <name>码农场</name>
+        <url>http://www.hankcs.com/</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>Apache License Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.html</url>
+        </license>
+    </licenses>
+    <inceptionYear>2014</inceptionYear>
+    <developers>
+        <developer>
+            <name>hankcs</name>
+            <email>me@hankcs.com</email>
+            <url>http://www.hankcs.com</url>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git@github.com:hankcs/AhoCorasickDoubleArrayTrie.git</connection>
+        <developerConnection>scm:git@github.com:hankcs/AhoCorasickDoubleArrayTrie.git</developerConnection>
+        <url>git@github.com:hankcs/AhoCorasickDoubleArrayTrie.git</url>
+    </scm>
 
     <build>
         <plugins>
@@ -73,8 +102,47 @@
                 <artifactId>sonar-maven3-plugin</artifactId>
                 <version>${sonar-maven3-plugin.version}</version>
             </plugin>
+            <!-- Javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- GPG -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>maven-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>maven-repo</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 
     <properties>
         <java.version>1.6</java.version>
@@ -89,6 +157,19 @@
 
         <junit.version>3.8.1</junit.version>
     </properties>
+
+    <!--禁用Java8过于严格的javadoc警告-->
+    <profiles>
+        <profile>
+            <id>disable-java8-doclint</id>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <properties>
+                <additionalparam>-Xdoclint:none</additionalparam>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
