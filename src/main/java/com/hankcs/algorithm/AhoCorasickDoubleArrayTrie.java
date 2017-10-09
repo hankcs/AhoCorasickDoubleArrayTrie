@@ -114,6 +114,32 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
      * @param text The text
      * @param processor A processor which handles the output
      */
+    public void parseText(String text, IHitCancellable<V> processor)
+    {
+        int currentState = 0;
+        for (int i = 0; i < text.length(); i++)
+        {
+            final int position = i + 1;
+            currentState = getState(currentState, text.charAt(i));
+            int[] hitArray = output[currentState];
+            if (hitArray != null)
+            {
+                for (int hit : hitArray)
+                {
+                    boolean proceed = processor.hit(position - l[hit], position, v[hit]);
+                    if(!proceed) {
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Parse text
+     * @param text The text
+     * @param processor A processor which handles the output
+     */
     public void parseText(char[] text, IHit<V> processor)
     {
         int position = 1;
@@ -243,6 +269,21 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
          * @param index the index of the value assigned to the keyword, you can use the integer as a perfect hash value
          */
         void hit(int begin, int end, V value, int index);
+    }
+
+    /**
+     * Callback that allows to cancel the search process.
+     */
+    public interface IHitCancellable<V>
+    {
+        /**
+         * Hit a keyword, you can use some code like text.substring(begin, end) to get the keyword
+         * @param begin the beginning index, inclusive.
+         * @param end   the ending index, exclusive.
+         * @param value the value assigned to the keyword
+         * @return Return true for continuing the search and false for stopping it.
+         */
+        boolean hit(int begin, int end, V value);
     }
 
     /**
