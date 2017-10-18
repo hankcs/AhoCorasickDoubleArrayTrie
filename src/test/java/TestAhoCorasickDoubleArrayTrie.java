@@ -68,6 +68,7 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         List<AhoCorasickDoubleArrayTrie<String>.Hit<String>> wordList = acdat.parseText(text);
         System.out.println(wordList);
     }
+
     public void testBuildAndParseSimply() throws Exception
     {
         AhoCorasickDoubleArrayTrie<String> acdat = buildASimpleAhoCorasickDoubleArrayTrie();
@@ -99,6 +100,52 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
                 assertEquals(text.substring(begin, end), value);
             }
         });
+    }
+
+    private static class CountHits implements AhoCorasickDoubleArrayTrie.IHitCancellable<String> {
+        private int count;
+        private boolean countAll;
+
+        CountHits(boolean countAll) {
+            this.count = 0;
+            this.countAll = countAll;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        @Override
+        public boolean hit(int begin, int end, String value) {
+            count += 1;
+            return countAll;
+        }
+    }
+
+    public void testCancellation() throws Exception {
+        // Collect test data set
+        TreeMap<String, String> map = new TreeMap<String, String>();
+        String[] keyArray = new String[]
+                {
+                        "foo",
+                        "bar"
+                };
+        for (String key : keyArray)
+        {
+            map.put(key, key);
+        }
+        // Build an AhoCorasickDoubleArrayTrie
+        AhoCorasickDoubleArrayTrie<String> acdat = new AhoCorasickDoubleArrayTrie<String>();
+        acdat.build(map);
+        // count matches
+        String haystack = "sfwtfoowercwbarqwrcq";
+        CountHits cancellingMatcher = new CountHits(false);
+        CountHits countingMatcher = new CountHits(true);
+        System.out.println("Testing cancellation");
+        acdat.parseText(haystack, cancellingMatcher);
+        acdat.parseText(haystack, countingMatcher);
+        assertEquals(cancellingMatcher.count, 1);
+        assertEquals(countingMatcher.count, 2);
     }
 
     private String loadText(String path) throws IOException
