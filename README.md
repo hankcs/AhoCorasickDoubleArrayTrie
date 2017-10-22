@@ -26,7 +26,7 @@ Include this dependency in your POM. Be sure to check for the latest version in 
 <dependency>
   <groupId>com.hankcs</groupId>
   <artifactId>aho-corasick-double-array-trie</artifactId>
-  <version>1.0.1</version>
+  <version>1.1.0</version>
 </dependency>
 ```
 
