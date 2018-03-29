@@ -25,7 +25,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
-import java.util.concurrent.LinkedBlockingDeque;
 
 /**
  * An implementation of Aho Corasick algorithm based on Double Array Trie
@@ -74,7 +73,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
     {
         int position = 1;
         int currentState = 0;
-        List<Hit<V>> collectedEmits = new LinkedList<Hit<V>>();
+        List<Hit<V>> collectedEmits = new ArrayList<Hit<V>>();
         for (int i = 0; i < text.length(); ++i)
         {
             currentState = getState(currentState, text.charAt(i));
@@ -183,6 +182,51 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
         }
     }
 
+    /**
+     * Checks that string contains at least one substring
+     *
+     * @param text source text to check
+     * @return {@code true} if string contains at least one substring
+     */
+    public boolean matches(String text)
+    {
+        int currentState = 0;
+        for (int i = 0; i < text.length(); ++i)
+        {
+            currentState = getState(currentState, text.charAt(i));
+            int[] hitArray = output[currentState];
+            if (hitArray != null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Search first match in string
+     *
+     * @param text source text to check
+     * @return first match or {@code null} if there are no matches
+     */
+    public Hit<V> findFirst(String text)
+    {
+        int position = 1;
+        int currentState = 0;
+        for (int i = 0; i < text.length(); ++i)
+        {
+            currentState = getState(currentState, text.charAt(i));
+            int[] hitArray = output[currentState];
+            if (hitArray != null)
+            {
+                int hitIndex = hitArray[0];
+                return new Hit<V>(position - l[hitIndex], position, v[hitIndex]);
+            }
+            ++position;
+        }
+        return null;
+    }
+
 
     /**
      * Save
@@ -233,7 +277,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
     /**
      * Pick the value by index in value array <br>
-     * Notice that to be more efficiently, this method DONOT check the parameter
+     * Notice that to be more efficiently, this method DO NOT check the parameter
      * @param index The index
      * @return The value
      */
@@ -291,7 +335,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
      *
      * @param <V> the value type
      */
-    public class Hit<V>
+    public static class Hit<V>
     {
         /**
          * the beginning index, inclusive.
@@ -726,7 +770,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
             fail = new int[size + 1];
             fail[1] = base[0];
             output = new int[size + 1][];
-            Queue<State> queue = new LinkedBlockingDeque<State>();
+            Queue<State> queue = new ArrayDeque<State>();
 
             // 第一步，将深度为1的节点的failure设为根节点
             for (State depthOneState : this.rootState.getStates())

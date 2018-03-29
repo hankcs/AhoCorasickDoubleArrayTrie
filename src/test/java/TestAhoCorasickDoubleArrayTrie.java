@@ -65,7 +65,7 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
             }
         });
         // Or simply use
-        List<AhoCorasickDoubleArrayTrie<String>.Hit<String>> wordList = acdat.parseText(text);
+        List<AhoCorasickDoubleArrayTrie.Hit<String>> wordList = acdat.parseText(text);
         System.out.println(wordList);
     }
 
@@ -120,6 +120,50 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
             count += 1;
             return countAll;
         }
+    }
+
+    public void testMatches() {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("space", 1);
+        map.put("keyword", 2);
+        map.put("ch", 3);
+        AhoCorasickDoubleArrayTrie<Integer> trie = new AhoCorasickDoubleArrayTrie<Integer>();
+        trie.build(map);
+
+        assertTrue(trie.matches("space"));
+        assertTrue(trie.matches("keyword"));
+        assertTrue(trie.matches("ch"));
+        assertTrue(trie.matches("  ch"));
+        assertTrue(trie.matches("chkeyword"));
+        assertTrue(trie.matches("oooospace2"));
+        assertFalse(trie.matches("c"));
+        assertFalse(trie.matches(""));
+        assertFalse(trie.matches("spac"));
+        assertFalse(trie.matches("nothing"));
+    }
+
+    public void testFirstMatch() {
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        map.put("space", 1);
+        map.put("keyword", 2);
+        map.put("ch", 3);
+        AhoCorasickDoubleArrayTrie<Integer> trie = new AhoCorasickDoubleArrayTrie<Integer>();
+        trie.build(map);
+
+        AhoCorasickDoubleArrayTrie.Hit<Integer> hit = trie.findFirst("space");
+        assertEquals(0, hit.begin);
+        assertEquals(5, hit.end);
+        assertEquals(1, hit.value.intValue());
+
+        hit = trie.findFirst("a lot of garbage in the space ch");
+        assertEquals(24, hit.begin);
+        assertEquals(29, hit.end);
+        assertEquals(1, hit.value.intValue());
+
+        assertNull(trie.findFirst(""));
+        assertNull(trie.findFirst("value"));
+        assertNull(trie.findFirst("keywork"));
+        assertNull(trie.findFirst(" no pace"));
     }
 
     public void testCancellation() throws Exception {
