@@ -76,6 +76,7 @@ public class State
 
     /**
      * 构造深度为depth的节点
+     *
      * @param depth
      */
     public State(int depth)
@@ -85,6 +86,7 @@ public class State
 
     /**
      * 获取节点深度
+     *
      * @return
      */
     public int getDepth()
@@ -94,6 +96,7 @@ public class State
 
     /**
      * 添加一个匹配到的模式串（这个状态对应着这个模式串)
+     *
      * @param keyword
      */
     public void addEmit(int keyword)
@@ -107,6 +110,7 @@ public class State
 
     /**
      * 获取最大的值
+     *
      * @return
      */
     public Integer getLargestValueId()
@@ -118,6 +122,7 @@ public class State
 
     /**
      * 添加一些匹配到的模式串
+     *
      * @param emits
      */
     public void addEmit(Collection<Integer> emits)
@@ -130,6 +135,7 @@ public class State
 
     /**
      * 获取这个节点代表的模式串（们）
+     *
      * @return
      */
     public Collection<Integer> emit()
@@ -139,6 +145,7 @@ public class State
 
     /**
      * 是否是终止状态
+     *
      * @return
      */
     public boolean isAcceptable()
@@ -148,6 +155,7 @@ public class State
 
     /**
      * 获取failure状态
+     *
      * @return
      */
     public State failure()
@@ -157,6 +165,7 @@ public class State
 
     /**
      * 设置failure状态
+     *
      * @param failState
      */
     public void setFailure(State failState, int fail[])
@@ -167,7 +176,8 @@ public class State
 
     /**
      * 转移到下一个状态
-     * @param character 希望按此字符转移
+     *
+     * @param character       希望按此字符转移
      * @param ignoreRootState 是否忽略根节点，如果是根节点自己调用则应该是true，否则为false
      * @return 转移结果
      */
@@ -183,6 +193,7 @@ public class State
 
     /**
      * 按照character转移，根节点转移失败会返回自己（永远不会返回null）
+     *
      * @param character
      * @return
      */
@@ -193,6 +204,7 @@ public class State
 
     /**
      * 按照character转移，任何节点转移失败会返回null
+     *
      * @param character
      * @return
      */
@@ -238,6 +250,7 @@ public class State
 
     /**
      * 获取goto表
+     *
      * @return
      */
     public Map<Character, State> getSuccess()

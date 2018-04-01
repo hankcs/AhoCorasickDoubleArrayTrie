@@ -102,27 +102,32 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         });
     }
 
-    private static class CountHits implements AhoCorasickDoubleArrayTrie.IHitCancellable<String> {
+    private static class CountHits implements AhoCorasickDoubleArrayTrie.IHitCancellable<String>
+    {
         private int count;
         private boolean countAll;
 
-        CountHits(boolean countAll) {
+        CountHits(boolean countAll)
+        {
             this.count = 0;
             this.countAll = countAll;
         }
 
-        public int getCount() {
+        public int getCount()
+        {
             return count;
         }
 
         @Override
-        public boolean hit(int begin, int end, String value) {
+        public boolean hit(int begin, int end, String value)
+        {
             count += 1;
             return countAll;
         }
     }
 
-    public void testMatches() {
+    public void testMatches()
+    {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("space", 1);
         map.put("keyword", 2);
@@ -142,7 +147,8 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         assertFalse(trie.matches("nothing"));
     }
 
-    public void testFirstMatch() {
+    public void testFirstMatch()
+    {
         Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("space", 1);
         map.put("keyword", 2);
@@ -166,7 +172,8 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         assertNull(trie.findFirst(" no pace"));
     }
 
-    public void testCancellation() throws Exception {
+    public void testCancellation() throws Exception
+    {
         // Collect test data set
         TreeMap<String, String> map = new TreeMap<String, String>();
         String[] keyArray = new String[]
@@ -265,6 +272,7 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
      * Compare my AhoCorasickDoubleArrayTrie with robert-bor's aho-corasick, notice that robert-bor's aho-corasick is
      * compiled under jdk1.8, so you will need jdk1.8 to run this test<br>
      * To avoid JVM wasting time on allocating memory, please use -Xms512m -Xmx512m -Xmn256m .
+     *
      * @throws Exception
      */
     public void testBenchmark() throws Exception

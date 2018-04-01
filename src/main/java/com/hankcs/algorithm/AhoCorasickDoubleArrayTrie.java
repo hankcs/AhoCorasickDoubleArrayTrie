@@ -66,6 +66,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
     /**
      * Parse text
+     *
      * @param text The text
      * @return a list of outputs
      */
@@ -86,7 +87,8 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
     /**
      * Parse text
-     * @param text The text
+     *
+     * @param text      The text
      * @param processor A processor which handles the output
      */
     public void parseText(String text, IHit<V> processor)
@@ -110,7 +112,8 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
     /**
      * Parse text
-     * @param text The text
+     *
+     * @param text      The text
      * @param processor A processor which handles the output
      */
     public void parseText(String text, IHitCancellable<V> processor)
@@ -126,7 +129,8 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
                 for (int hit : hitArray)
                 {
                     boolean proceed = processor.hit(position - l[hit], position, v[hit]);
-                    if(!proceed) {
+                    if (!proceed)
+                    {
                         return;
                     }
                 }
@@ -136,7 +140,8 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
     /**
      * Parse text
-     * @param text The text
+     *
+     * @param text      The text
      * @param processor A processor which handles the output
      */
     public void parseText(char[] text, IHit<V> processor)
@@ -160,7 +165,8 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
     /**
      * Parse text
-     * @param text The text
+     *
+     * @param text      The text
      * @param processor A processor which handles the output
      */
     public void parseText(char[] text, IHitFull<V> processor)
@@ -230,6 +236,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
     /**
      * Save
+     *
      * @param out An ObjectOutputStream object
      * @throws IOException Some IOException
      */
@@ -245,6 +252,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
     /**
      * Load
+     *
      * @param in An ObjectInputStream object
      * @throws IOException
      * @throws ClassNotFoundException
@@ -261,6 +269,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
     /**
      * Get value by a String key, just like a map.get() method
+     *
      * @param key The key
      * @return
      */
@@ -278,6 +287,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
     /**
      * Pick the value by index in value array <br>
      * Notice that to be more efficiently, this method DO NOT check the parameter
+     *
      * @param index The index
      * @return The value
      */
@@ -293,6 +303,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
     {
         /**
          * Hit a keyword, you can use some code like text.substring(begin, end) to get the keyword
+         *
          * @param begin the beginning index, inclusive.
          * @param end   the ending index, exclusive.
          * @param value the value assigned to the keyword
@@ -307,6 +318,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
     {
         /**
          * Hit a keyword, you can use some code like text.substring(begin, end) to get the keyword
+         *
          * @param begin the beginning index, inclusive.
          * @param end   the ending index, exclusive.
          * @param value the value assigned to the keyword
@@ -322,6 +334,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
     {
         /**
          * Hit a keyword, you can use some code like text.substring(begin, end) to get the keyword
+         *
          * @param begin the beginning index, inclusive.
          * @param end   the ending index, exclusive.
          * @param value the value assigned to the keyword
@@ -448,6 +461,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
     /**
      * Build a AhoCorasickDoubleArrayTrie from a map
+     *
      * @param map a map containing key-value pairs
      */
     public void build(Map<String, V> map)
@@ -650,6 +664,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
     /**
      * Get the size of the keywords
+     *
      * @return
      */
     public int size()
@@ -689,6 +704,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
         /**
          * Build from a map
+         *
          * @param map a map containing key-value pairs
          */
         @SuppressWarnings("unchecked")
