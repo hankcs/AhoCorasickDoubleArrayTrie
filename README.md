@@ -22,17 +22,19 @@ This implementation has been widely used in my [HanLP: Han Language Processing](
 Dependency
 ----------
 Include this dependency in your POM. Be sure to check for the latest version in Maven Central.
+
 ```xml
 <dependency>
   <groupId>com.hankcs</groupId>
   <artifactId>aho-corasick-double-array-trie</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 
 Usage
 -----
 Setting up the `AhoCorasickDoubleArrayTrie` is a piece of cake:
+
 ```java
         // Collect test data set
         TreeMap<String, String> map = new TreeMap<String, String>();
@@ -52,7 +54,7 @@ Setting up the `AhoCorasickDoubleArrayTrie` is a piece of cake:
         acdat.build(map);
         // Test it
         final String text = "uhers";
-        List<AhoCorasickDoubleArrayTrie<String>.Hit<String>> wordList = acdat.parseText(text);
+        List<AhoCorasickDoubleArrayTrie.Hit<String>> wordList = acdat.parseText(text);
 ```
 
 Of course, there remains many useful methods to be discovered, feel free to try:
@@ -74,6 +76,7 @@ In other situations you probably do not need a huge wordList, then please try th
 ```
 
 or a lambda function
+
 ```
         acdat.parseText(text, (begin, end, value) -> {
             System.out.printf("[%d:%d]=%s\n", begin, end, value);
@@ -83,6 +86,7 @@ or a lambda function
 Comparison
 -----
 I compared my AhoCorasickDoubleArrayTrie with robert-bor's aho-corasick, ACDAT represents for AhoCorasickDoubleArrayTrie and Naive represents for aho-corasick, the result is :
+
 ```
 Parsing English document which contains 3409283 characters, with a dictionary of 127142 words.
                	Naive          	ACDAT
@@ -119,3 +123,5 @@ License
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+
