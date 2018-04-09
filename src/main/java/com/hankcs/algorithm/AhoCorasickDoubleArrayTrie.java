@@ -70,7 +70,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
      * @param text The text
      * @return a list of outputs
      */
-    public List<Hit<V>> parseText(String text)
+    public List<Hit<V>> parseText(CharSequence text)
     {
         int position = 1;
         int currentState = 0;
@@ -91,7 +91,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
      * @param text      The text
      * @param processor A processor which handles the output
      */
-    public void parseText(String text, IHit<V> processor)
+    public void parseText(CharSequence text, IHit<V> processor)
     {
         int position = 1;
         int currentState = 0;
@@ -116,7 +116,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
      * @param text      The text
      * @param processor A processor which handles the output
      */
-    public void parseText(String text, IHitCancellable<V> processor)
+    public void parseText(CharSequence text, IHitCancellable<V> processor)
     {
         int currentState = 0;
         for (int i = 0; i < text.length(); i++)
