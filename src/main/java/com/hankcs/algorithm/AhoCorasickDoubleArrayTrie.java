@@ -283,7 +283,23 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
         return null;
     }
+    /**
+     * Update a value corresponding to a key
+     * @param key   the key
+     * @param value the value
+     * @return successful or not（failure if there is no key）
+     */
+    public boolean set(String key, V value)
+    {
+        int index = exactMatchSearch(key);
+        if (index >= 0)
+        {
+            v[index] = value;
+            return true;
+        }
 
+        return false;
+    }
     /**
      * Pick the value by index in value array <br>
      * Notice that to be more efficiently, this method DO NOT check the parameter
