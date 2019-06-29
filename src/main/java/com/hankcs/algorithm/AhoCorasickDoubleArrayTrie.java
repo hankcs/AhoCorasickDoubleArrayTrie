@@ -36,15 +36,15 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
     /**
      * check array of the Double Array Trie structure
      */
-    protected int check[];
+    protected int[] check;
     /**
      * base array of the Double Array Trie structure
      */
-    protected int base[];
+    protected int[] base;
     /**
      * fail table of the Aho Corasick automata
      */
-    protected int fail[];
+    protected int[] fail;
     /**
      * output table of the Aho Corasick automata
      */
@@ -700,7 +700,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
         /**
          * whether the position has been used
          */
-        private boolean used[];
+        private boolean[] used;
         /**
          * the allocSize of the dynamic array
          */
@@ -842,7 +842,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
         {
             Collection<Integer> emit = targetState.emit();
             if (emit == null || emit.size() == 0) return;
-            int output[] = new int[emit.size()];
+            int[] output = new int[emit.size()];
             Iterator<Integer> it = emit.iterator();
             for (int i = 0; i < output.length; ++i)
             {
@@ -877,7 +877,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
         {
             int[] base2 = new int[newSize];
             int[] check2 = new int[newSize];
-            boolean used2[] = new boolean[newSize];
+            boolean[] used2 = new boolean[newSize];
             if (allocSize > 0)
             {
                 System.arraycopy(base, 0, base2, 0, allocSize);
@@ -987,11 +987,11 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
          */
         private void loseWeight()
         {
-            int nbase[] = new int[size + 65535];
+            int[] nbase = new int[size + 65535];
             System.arraycopy(base, 0, nbase, 0, size);
             base = nbase;
 
-            int ncheck[] = new int[size + 65535];
+            int[] ncheck = new int[size + 65535];
             System.arraycopy(check, 0, ncheck, 0, size);
             check = ncheck;
         }
