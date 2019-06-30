@@ -251,11 +251,11 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
     }
 
     /**
-     * Load
+     * Load data from [ObjectInputStream]
      *
      * @param in An ObjectInputStream object
-     * @throws IOException
-     * @throws ClassNotFoundException
+     * @throws IOException If can't read the file from path
+     * @throws ClassNotFoundException If the class doesn't exist or matched
      */
     public void load(ObjectInputStream in) throws IOException, ClassNotFoundException
     {
@@ -271,7 +271,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
      * Get value by a String key, just like a map.get() method
      *
      * @param key The key
-     * @return
+     * @return value if exist otherwise it return null
      */
     public V get(String key)
     {
@@ -517,11 +517,14 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
         char[] keyChars = key.toCharArray();
 
-        int b = base[nodePos];
+        return getMatched(pos, len, result, keyChars, base[nodePos]);
+    }
+
+    private int getMatched(int pos, int len, int result, char[] keyChars, int b1) {
+        int b = b1;
         int p;
 
-        for (int i = pos; i < len; i++)
-        {
+        for (int i = pos; i < len; i++) {
             p = b + (int) (keyChars[i]) + 1;
             if (b == check[p])
                 b = base[p];
@@ -531,8 +534,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
         p = b;
         int n = base[p];
-        if (b == check[p] && n < 0)
-        {
+        if (b == check[p] && n < 0) {
             result = -n - 1;
         }
         return result;
@@ -551,25 +553,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
     {
         int result = -1;
 
-        int b = base[nodePos];
-        int p;
-
-        for (int i = pos; i < len; i++)
-        {
-            p = b + (int) (keyChars[i]) + 1;
-            if (b == check[p])
-                b = base[p];
-            else
-                return result;
-        }
-
-        p = b;
-        int n = base[p];
-        if (b == check[p] && n < 0)
-        {
-            result = -n - 1;
-        }
-        return result;
+        return getMatched(pos, len, result, keyChars, base[nodePos]);
     }
 
 //    /**
@@ -679,14 +663,9 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 //    }
 
     /**
-     * Get the size of the keywords
-     *
-     * @return
+     * @return the size of the keywords
      */
-    public int size()
-    {
-        return v.length;
-    }
+    public int size() { return v.length; }
 
     /**
      * A builder to build the AhoCorasickDoubleArrayTrie
@@ -870,8 +849,8 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
         /**
          * allocate the memory of the dynamic array
          *
-         * @param newSize
-         * @return
+         * @param newSize of the new array
+         * @return the new-allocated-size
          */
         private int resize(int newSize)
         {
