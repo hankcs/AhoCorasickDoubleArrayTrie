@@ -975,4 +975,27 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
             check = ncheck;
         }
     }
+
+    /**
+     * 在某些情况下，系统需要动态重新build，为防止内存泄漏，原有的已存在的对象需要释放掉
+     */
+    public void destroy() {
+        if (base != null) {
+            base = null;
+        }
+        if (fail != null) {
+            fail = null;
+        }
+        if (output != null) {
+            output = null;
+        }
+        if (v != null) {
+            v = null;
+        }
+        if (l != null) {
+            l = null;
+        }
+        size = 0;
+    }
+
 }
