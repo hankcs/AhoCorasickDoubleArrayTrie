@@ -254,7 +254,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
      * Load data from [ObjectInputStream]
      *
      * @param in An ObjectInputStream object
-     * @throws IOException If can't read the file from path
+     * @throws IOException            If can't read the file from path
      * @throws ClassNotFoundException If the class doesn't exist or matched
      */
     public void load(ObjectInputStream in) throws IOException, ClassNotFoundException
@@ -283,8 +283,10 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
         return null;
     }
+
     /**
      * Update a value corresponding to a key
+     *
      * @param key   the key
      * @param value the value
      * @return successful or not（failure if there is no key）
@@ -300,6 +302,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
         return false;
     }
+
     /**
      * Pick the value by index in value array <br>
      * Notice that to be more efficiently, this method DO NOT check the parameter
@@ -520,11 +523,13 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
         return getMatched(pos, len, result, keyChars, base[nodePos]);
     }
 
-    private int getMatched(int pos, int len, int result, char[] keyChars, int b1) {
+    private int getMatched(int pos, int len, int result, char[] keyChars, int b1)
+    {
         int b = b1;
         int p;
 
-        for (int i = pos; i < len; i++) {
+        for (int i = pos; i < len; i++)
+        {
             p = b + (int) (keyChars[i]) + 1;
             if (b == check[p])
                 b = base[p];
@@ -534,7 +539,8 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
         p = b;
         int n = base[p];
-        if (b == check[p] && n < 0) {
+        if (b == check[p] && n < 0)
+        {
             result = -n - 1;
         }
         return result;
@@ -665,7 +671,10 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
     /**
      * @return the size of the keywords
      */
-    public int size() { return v.length; }
+    public int size()
+    {
+        return v.length;
+    }
 
     /**
      * A builder to build the AhoCorasickDoubleArrayTrie
