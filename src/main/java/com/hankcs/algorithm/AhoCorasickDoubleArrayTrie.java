@@ -537,9 +537,9 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
                 return result;
         }
 
-        p = b;
+        p = b; // transition through '\0' to check if it's the end of a word
         int n = base[p];
-        if (b == check[p] && n < 0)
+        if (b == check[p]) // yes, it is.
         {
             result = -n - 1;
         }
