@@ -294,4 +294,12 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         acdat = (AhoCorasickDoubleArrayTrie<String>) in.readObject();
         validateASimpleAhoCorasickDoubleArrayTrie(acdat);
     }
+
+    public void testBuildEmptyTrie()
+    {
+        AhoCorasickDoubleArrayTrie<String> acdat = new AhoCorasickDoubleArrayTrie<String>();
+        TreeMap<String, String> map = new TreeMap<String, String>();
+        acdat.build(map);
+        assertEquals(0, acdat.size());
+    }
 }

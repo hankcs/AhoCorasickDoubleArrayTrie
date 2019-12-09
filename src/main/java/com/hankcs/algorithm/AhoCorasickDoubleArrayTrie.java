@@ -788,7 +788,6 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
         private void constructFailureStates()
         {
             fail = new int[size + 1];
-            fail[1] = base[0];
             output = new int[size + 1][];
             Queue<State> queue = new ArrayDeque<State>();
 
@@ -852,7 +851,8 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
             List<Map.Entry<Integer, State>> siblings = new ArrayList<Map.Entry<Integer, State>>(root_node.getSuccess().entrySet().size());
             fetch(root_node, siblings);
-            insert(siblings);
+            if (!siblings.isEmpty())
+                insert(siblings);
         }
 
         /**
