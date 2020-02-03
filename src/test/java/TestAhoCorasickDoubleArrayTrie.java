@@ -19,6 +19,8 @@
  */
 
 import com.hankcs.algorithm.AhoCorasickDoubleArrayTrie;
+import com.hankcs.algorithm.AhoCorasickDoubleArrayTrie.Hit;
+
 import junit.framework.TestCase;
 import org.ahocorasick.trie.Trie;
 
@@ -73,6 +75,33 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
     {
         AhoCorasickDoubleArrayTrie<String> acdat = buildASimpleAhoCorasickDoubleArrayTrie();
         validateASimpleAhoCorasickDoubleArrayTrie(acdat);
+    }
+
+    public void testBuildVeryLongWord() throws Exception
+    {
+        TreeMap<String, String> map = new TreeMap<String, String>();
+
+        int longWordLength = 20000;
+
+        String word = loadText("cn/text.txt");
+        map.put(word.substring(10, longWordLength), word.substring(10, longWordLength));
+        map.put(word.substring(30, 40), null);
+
+        word = loadText("en/text.txt");
+        map.put(word.substring(10, longWordLength), word.substring(10, longWordLength));
+        map.put(word.substring(30, 40), null);
+
+        // Build an AhoCorasickDoubleArrayTrie
+        AhoCorasickDoubleArrayTrie<String> acdat = new AhoCorasickDoubleArrayTrie<String>();
+        acdat.build(map);
+        
+        List<Hit<String>> result = acdat.parseText(word);
+        
+        assertEquals(2, result.size());
+        assertEquals(30, result.get(0).begin);
+        assertEquals(40, result.get(0).end);
+        assertEquals(10, result.get(1).begin);
+        assertEquals(longWordLength, result.get(1).end);
     }
 
     public void testBuildAndParseWithBigFile() throws Exception
