@@ -883,11 +883,28 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
         /**
          * insert the siblings to double array trie
          *
-         * @param siblings the siblings being inserted
-         * @return the position to insert them
+         * @param firstSiblings the initial siblings being inserted
          */
-        private int insert(List<Map.Entry<Integer, State>> siblings)
+        private void insert(List<Map.Entry<Integer, State>> firstSiblings)
         {
+            Queue<Map.Entry<Integer, List<Map.Entry<Integer, State>>>> siblingQueue = new ArrayDeque<Map.Entry<Integer, List<Map.Entry<Integer, State>>>>();
+            siblingQueue.add(new AbstractMap.SimpleEntry<Integer, List<Map.Entry<Integer, State>>>(null, firstSiblings));
+            
+            while (siblingQueue.isEmpty() == false)
+            {
+                insert(siblingQueue);
+            }
+        }
+
+        /**
+         * insert the siblings to double array trie
+         *
+         * @param siblingQueue a queue holding all siblings being inserted and the position to insert them
+         */
+        private void insert(Queue<Map.Entry<Integer, List<Map.Entry<Integer, State>>>> siblingQueue) {
+            Map.Entry<Integer, List<Map.Entry<Integer, State>>> tCurrent = siblingQueue.remove();
+            List<Map.Entry<Integer, State>> siblings = tCurrent.getValue();
+            
             int begin = 0;
             int pos = Math.max(siblings.get(0).getKey() + 1, nextCheckPos) - 1;
             int nonzero_num = 0;
@@ -962,12 +979,17 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
                 }
                 else
                 {
-                    int h = insert(new_siblings);   // dfs
-                    base[begin + sibling.getKey()] = h;
+                    siblingQueue.add(new AbstractMap.SimpleEntry<Integer, List<Map.Entry<Integer, State>>>(begin + sibling.getKey(), new_siblings));
                 }
                 sibling.getValue().setIndex(begin + sibling.getKey());
             }
-            return begin;
+
+            // Insert siblings
+            Integer parentBaseIndex = tCurrent.getKey();
+            if (parentBaseIndex != null)
+            {
+                base[parentBaseIndex] = begin;
+            }
         }
 
         /**
