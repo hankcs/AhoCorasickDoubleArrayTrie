@@ -889,7 +889,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
         {
             Queue<Map.Entry<Integer, List<Map.Entry<Integer, State>>>> siblingQueue = new ArrayDeque<Map.Entry<Integer, List<Map.Entry<Integer, State>>>>();
             siblingQueue.add(new AbstractMap.SimpleEntry<Integer, List<Map.Entry<Integer, State>>>(null, firstSiblings));
-            
+
             while (siblingQueue.isEmpty() == false)
             {
                 insert(siblingQueue);
@@ -901,10 +901,11 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
          *
          * @param siblingQueue a queue holding all siblings being inserted and the position to insert them
          */
-        private void insert(Queue<Map.Entry<Integer, List<Map.Entry<Integer, State>>>> siblingQueue) {
+        private void insert(Queue<Map.Entry<Integer, List<Map.Entry<Integer, State>>>> siblingQueue)
+        {
             Map.Entry<Integer, List<Map.Entry<Integer, State>>> tCurrent = siblingQueue.remove();
             List<Map.Entry<Integer, State>> siblings = tCurrent.getValue();
-            
+
             int begin = 0;
             int pos = Math.max(siblings.get(0).getKey() + 1, nextCheckPos) - 1;
             int nonzero_num = 0;
