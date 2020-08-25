@@ -30,6 +30,10 @@ Include this dependency in your POM. Be sure to check for the latest version in 
   <version>1.2.2</version>
 </dependency>
 ```
+or include this dependency in your build.gradle.kts
+```kotlin
+implementation("com.hankcs:aho-corasick-double-array-trie:1.2.2")
+```
 
 Usage
 -----
