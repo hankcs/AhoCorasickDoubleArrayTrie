@@ -30,6 +30,10 @@ Include this dependency in your POM. Be sure to check for the latest version in 
   <version>1.2.2</version>
 </dependency>
 ```
+or include this dependency in your build.gradle.kts
+```kotlin
+implementation("com.hankcs:aho-corasick-double-array-trie:1.2.2")
+```
 
 Usage
 -----
@@ -61,6 +65,7 @@ Of course, there remains many useful methods to be discovered, feel free to try:
 * Use a `Map<String, SomeObject>` to assign a `SomeObject` as value to a keyword.
 * Store the `AhoCorasickDoubleArrayTrie` to disk by calling `save` method.
 * Restore the `AhoCorasickDoubleArrayTrie` from disk by calling `load` method.
+* Use it in concurrent code. `AhoCorasickDoubleArrayTrie` is thread safe after `build` method
 
 In other situations you probably do not need a huge wordList, then please try this:
 
