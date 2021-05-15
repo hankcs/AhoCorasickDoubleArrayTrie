@@ -155,7 +155,7 @@
         <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
         <sonar-maven3-plugin.version>3.5</sonar-maven3-plugin.version>
 
-        <junit.version>3.8.1</junit.version>
+        <junit.version>4.13.1</junit.version>
     </properties>
 
     <!--禁用Java8过于严格的javadoc警告-->
