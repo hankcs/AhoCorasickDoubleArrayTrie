@@ -851,7 +851,9 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
             List<Map.Entry<Integer, State>> siblings = new ArrayList<Map.Entry<Integer, State>>(root_node.getSuccess().entrySet().size());
             fetch(root_node, siblings);
-            if (!siblings.isEmpty())
+            if (siblings.isEmpty())
+                Arrays.fill(check, -1); // fill -1 such that no transition is allowed
+            else
                 insert(siblings);
         }
 
@@ -1005,7 +1007,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
             base = nbase;
 
             int[] ncheck = new int[size + 65535];
-            System.arraycopy(check, 0, ncheck, 0, size);
+            System.arraycopy(check, 0, ncheck, 0, Math.min(check.length, ncheck.length));
             check = ncheck;
         }
     }

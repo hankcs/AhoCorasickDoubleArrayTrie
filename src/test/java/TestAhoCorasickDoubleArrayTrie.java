@@ -330,5 +330,7 @@ public class TestAhoCorasickDoubleArrayTrie extends TestCase
         TreeMap<String, String> map = new TreeMap<String, String>();
         acdat.build(map);
         assertEquals(0, acdat.size());
+        List<Hit<String>> hits = acdat.parseText("uhers");
+        assertEquals(0, hits.size());
     }
 }
