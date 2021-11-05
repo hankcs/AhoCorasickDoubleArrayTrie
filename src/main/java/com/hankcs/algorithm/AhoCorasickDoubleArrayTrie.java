@@ -194,7 +194,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
      * @param text source text to check
      * @return {@code true} if string contains at least one substring
      */
-    public boolean matches(String text)
+    public boolean matches(CharSequence text)
     {
         int currentState = 0;
         for (int i = 0; i < text.length(); ++i)
@@ -215,7 +215,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
      * @param text source text to check
      * @return first match or {@code null} if there are no matches
      */
-    public Hit<V> findFirst(String text)
+    public Hit<V> findFirst(CharSequence text)
     {
         int position = 1;
         int currentState = 0;
@@ -273,7 +273,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
      * @param key The key
      * @return value if exist otherwise it return null
      */
-    public V get(String key)
+    public V get(CharSequence key)
     {
         int index = exactMatchSearch(key);
         if (index >= 0)
@@ -291,7 +291,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
      * @param value the value
      * @return successful or not（failure if there is no key）
      */
-    public boolean set(String key, V value)
+    public boolean set(CharSequence key, V value)
     {
         int index = exactMatchSearch(key);
         if (index >= 0)
@@ -495,7 +495,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
      * @param key the key
      * @return the index of the key, you can use it as a perfect hash function
      */
-    public int exactMatchSearch(String key)
+    public int exactMatchSearch(CharSequence key)
     {
         return exactMatchSearch(key, 0, 0, 0);
     }
@@ -509,7 +509,7 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
      * @param nodePos
      * @return
      */
-    private int exactMatchSearch(String key, int pos, int len, int nodePos)
+    private int exactMatchSearch(CharSequence key, int pos, int len, int nodePos)
     {
         if (len <= 0)
             len = key.length();
@@ -518,19 +518,18 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
 
         int result = -1;
 
-        char[] keyChars = key.toCharArray();
 
-        return getMatched(pos, len, result, keyChars, base[nodePos]);
+        return getMatched(pos, len, result, key, base[nodePos]);
     }
 
-    private int getMatched(int pos, int len, int result, char[] keyChars, int b1)
+    private int getMatched(int pos, int len, int result, CharSequence key, int b1)
     {
         int b = b1;
         int p;
 
         for (int i = pos; i < len; i++)
         {
-            p = b + (int) (keyChars[i]) + 1;
+            p = b + (int) (key.charAt(i)) + 1;
             if (b == check[p])
                 b = base[p];
             else
@@ -546,21 +545,6 @@ public class AhoCorasickDoubleArrayTrie<V> implements Serializable
         return result;
     }
 
-    /**
-     * match exactly by a key
-     *
-     * @param keyChars the char array of the key
-     * @param pos      the begin index of char array
-     * @param len      the length of the key
-     * @param nodePos  the starting position of the node for searching
-     * @return the value index of the key, minus indicates null
-     */
-    private int exactMatchSearch(char[] keyChars, int pos, int len, int nodePos)
-    {
-        int result = -1;
-
-        return getMatched(pos, len, result, keyChars, base[nodePos]);
-    }
 
 //    /**
 //     * Just for debug when I wrote it
