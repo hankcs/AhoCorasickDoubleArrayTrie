@@ -62,6 +62,11 @@
                     <excludes>
                         <exclude>**/*.properties</exclude>
                     </excludes>
+                    <archive>
+                        <manifestEntries>
+                            <Automatic-Module-Name>com.hankcs.aho.corasic.doublearray.trie</Automatic-Module-Name>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
             <!-- 单元测试插件 -->
